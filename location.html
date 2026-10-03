@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Location Demo</title>
+</head>
+<body>
+  <h2>My GPS Location</h2>
+  <button onclick="getLocation()">
+    Find My Location
+  </button>
+  <p id="result">Waiting...</p>
+
+  <script>
+    function getLocation() {
+      if (!navigator.geolocation) {
+        document.getElementById("result").innerText =
+          "GPS not supported";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          document.getElementById("result").innerHTML =
+            "Latitude: " + lat +
+            "<br>Longitude: " + lon +
+            '<br><a target="_blank" href="https://www.google.com/maps?q='
+            + lat + ',' + lon + '">View on Google Maps</a>';
+        },
+        function() {
+          document.getElementById("result").innerText =
+            "Location permission denied";
+        }
+      );
+    }
+  </script>
+</body>
+</html>
